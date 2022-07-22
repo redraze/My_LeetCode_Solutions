@@ -1,4 +1,9 @@
+###
+#
 # today I learned that hashtables have an average O(1) lookup time complexity, which is cool! 
+#
+###
+
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:

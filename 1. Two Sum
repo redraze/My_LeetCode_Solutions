@@ -1,4 +1,9 @@
+###
+#
 # tried a brute force saultion at first, but eventually peeked at the solution. ended up learning a lot about hash tables!
+#
+###
+
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:

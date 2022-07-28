@@ -7,7 +7,8 @@ Basically a brute force algorithm with a frequency dictionary and dictionary of 
 The idea behind the dictionary of searched pairs was to be able to skip pairs that have already been searched,
 and the idea behind the frequency dictionary was to be able to quickly find out if the complement to a pair existed in enough quantity to form a triplet.
 
-I think the space complexity of this algorithm is ...
+Without the dictionaries the time complexity of this approach in O(n^3) which isn't great...
+With the dictionaries though? uh..
 
 '''
 

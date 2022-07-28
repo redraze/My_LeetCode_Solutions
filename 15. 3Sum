@@ -8,7 +8,7 @@ The idea behind the dictionary of searched pairs was to be able to skip pairs th
 and the idea behind the frequency dictionary was to be able to quickly find out if the complement to a pair existed in enough quantity to form a triplet.
 
 Without the dictionaries the time complexity of this approach in O(n^3) which isn't great...
-With the dictionaries though? uh..
+With the dictionaries though? 
 
 '''
 

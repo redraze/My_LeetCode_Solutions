@@ -42,7 +42,7 @@ class Solution:
 
 '''
 
-I did have another idea to use two moving markers on a sorted array. 
+I did have another idea to use two moving markers on a sorted array (and after looking for solutions online, it seems like I was onto something!)
 
 Once sorted, the array would need to be iterated over len(array) times, and for each of those iterations another len(array) iterations.
 Making the time complexity O(sort time + len(array)^2)
@@ -66,3 +66,6 @@ for j in range(0, len(sorted_array)):
            i -= 1
         if (i + j + k) < 0:
            k += 1
+           
+           
+# functioning solution soon!

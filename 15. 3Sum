@@ -1,0 +1,67 @@
+
+'''
+
+My first attempt.
+
+Basically a brute force algorithm with a frequency dictionary and dictionary of already searched pairs.
+The idea behind the dictionary of searched pairs was to be able to skip pairs that have already been searched,
+and the idea behind the frequency dictionary was to be able to quickly find out if the complement to a pair existed in enough quantity to form a triplet.
+
+I think the space complexity of this algorithm is ...
+
+'''
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        triplets = []
+        searched_pairs = {}
+
+        # frequency dictionary
+        freq = {}
+        for i in nums:
+            if i in freq:
+                freq[i] += 1
+            else:
+                freq[i] = 1
+
+        for i in nums:
+            j = i + 1
+            while j < len(nums):
+                if (i,j) or (j,i) not in searched_pairs:
+                    searched_pairs[i,j] = 0
+                    c = -1 * (i + j)
+                    if c in freq:
+                        if c == i and c == j and freq[c] >= 3:
+                            triplets.append([i,j,c])
+                        elif c == i or c == j and freq[c] >= 2:
+                            triplets.append([i,j,c])
+                j += 1
+        return triplets
+
+
+'''
+
+I did have another idea to use two moving markers on a sorted array. 
+
+Once sorted, the array would need to be iterated over len(array) times, and for each of those iterations another len(array) iterations.
+Making the time complexity O(sort time + len(array)^2)
+
+Something like this:
+
+sorted_array:        [    negative numbers        0        positive numbers     ]
+markers:                             <- i         j          k ->
+
+'''
+
+# imcomplete pseudo-code:
+for j in range(0, len(sorted_array)):
+    i = j - 1
+    k = j + 1
+    while True:
+        if (i + j + k) == 0 and [i,j,k] not in triplets:
+           triplets.append([i,j,k])
+           i -= 1
+        if (i + j + k) > 0:
+           i -= 1
+        if (i + j + k) < 0:
+           k += 1

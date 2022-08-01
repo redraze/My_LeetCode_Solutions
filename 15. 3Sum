@@ -1,4 +1,3 @@
-
 '''
 
 My first attempt.
@@ -7,18 +6,20 @@ Basically a brute force algorithm with a frequency dictionary and dictionary of 
 The idea behind the dictionary of searched pairs was to be able to skip pairs that have already been searched,
 and the idea behind the frequency dictionary was to be able to quickly find out if the complement to a pair existed in enough quantity to form a triplet.
 
-frequency table time complexity:    O(n)
-pair search time complexity:        O(n^2)      [worst case]
-overall time complexity:            O(n + n^2) --> O(n^2)
+frequency table time complexity:    O(len(array))
+loop time complexity:               O(len(array)^3)      [worst case]
+overall time complexity:            O(len(array) + len(array)^3) --> O(len(array)^3)
 
 '''
+
+# Runtime: 9319 ms 
+# Memory Usage: 455.5 MB
+# incredible work
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         triplets = []
         searched_pairs = {}
-
-        # frequency dictionary
         freq = {}
         for i in nums:
             if i in freq:
@@ -26,32 +27,42 @@ class Solution:
             else:
                 freq[i] = 1
 
-        for i in nums:
-            j = i + 1
-            while j < len(nums):
-                if (i,j) or (j,i) not in searched_pairs:
-                    searched_pairs[i,j] = 0
-                    c = -1 * (i + j)
-                    if c in freq:
-                        if c == i and c == j and freq[c] >= 3:
-                            triplets.append([i,j,c])
-                        elif c == i or c == j and freq[c] >= 2:
-                            triplets.append([i,j,c])
-                j += 1
+        for i in range(0,len(nums)):
+            for j in range(i + 1,len(nums)):
+                if (
+                    (nums[i],nums[j]) not in searched_pairs 
+                    and (nums[j],nums[i]) not in searched_pairs
+                ):
+                    searched_pairs[nums[i],nums[j]] = 0
+
+                    # c for complement! ;D
+                    c = -1 * (nums[i] + nums[j])
+                    if (c in freq
+                        and (
+                            (c != nums[i] and c != nums[j] and nums[i]!= nums[j])
+                            or ((nums[i] == c or nums[j] == c) and nums[i] != nums[j] and freq[c] > 1) 
+                            or (c == nums[i] and c == nums[j] and nums[i] == nums[j] and freq[c] > 2)
+                        )
+                    ):
+                        triplets.append([nums[i],nums[j],c])
+                        searched_pairs[nums[i],c] = 0
+                        searched_pairs[nums[j],c] = 0
         return triplets
 
 
 '''
 
-I did have another idea to use two moving markers on a sorted array (and after looking for solutions online, it seems like I was onto something!)
-
-Once sorted, the array would need to be iterated over len(array) times, and for each of those iterations another len(array) iterations.
-Making the time complexity O(sort time + len(array)^2)
+I did have another idea to use two moving markers on a sorted array 
 
 Something like this:
 
 sorted_array:        [    negative numbers        0        positive numbers     ]
-markers:                             <- i         j          k ->
+markers:                              <- i        j        k ->
+
+(after looking for solutions online, it seems like I was onto something!)
+
+Once sorted, the array would need to be iterated over len(array) times, and for each of those iterations another len(array) iterations.
+Making the time complexity O(sort time + len(array)^2)
 
 '''
 
@@ -67,6 +78,3 @@ for j in range(0, len(sorted_array)):
            i -= 1
         if (i + j + k) < 0:
            k += 1
-           
-           
-# functioning solution soon!

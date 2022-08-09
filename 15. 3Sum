@@ -59,13 +59,6 @@ Something like this:
 sorted_array:        [    negative numbers        0        positive numbers     ]
 markers:                              <- i        j        k ->
 
-(after looking for solutions online, it seems like I was onto something!)
-
-Once sorted, the array would need to be iterated over len(array) times, and for each of those iterations another len(array) iterations.
-Making the time complexity O(sort time + len(array)^2)
-
-'''
-
 # imcomplete pseudo-code:
 for j in range(0, len(sorted_array)):
     i = j - 1
@@ -78,3 +71,88 @@ for j in range(0, len(sorted_array)):
            i -= 1
         if (i + j + k) < 0:
            k += 1
+
+(after looking for solutions online, it seems like I was onto something!)
+
+Once sorted, the array would need to be iterated over len(array) times, and for each of those iterations another len(array) iterations.
+Making the time complexity O(sort time + len(array)^2)
+
+'''
+
+# my second attempt!
+# chose a heapsort algorithm because it looked neat and I hadn't written one before
+# heapify() needs some work, but the sorting algo works!
+# finished & polished products coming soon...
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        
+        # sort array
+        nums = self.sort(nums)
+        
+        # find triplets
+        triplets = self.find_triplets(nums)
+
+        return triplets
+        
+    # heapsort
+    def sort(self, nums:List[int]) -> List[int]:
+        # heapify needs work
+        def heapify():
+            while True:
+                switch = 0
+                i = 0
+                while True:
+                    try:
+                        if nums[i] < nums[2*i + 1] or nums[i] < nums[2*i + 2]:
+                            try:
+                                if nums[2*i + 1] > nums[2*i + 2]:
+                                    swap(2*i + 1, i)
+                                else:
+                                    swap(2*i + 2, i)
+                            except IndexError:
+                                swap(2*i + 1, i)
+                            switch = 1
+                        i += 1
+                    except IndexError:
+                        break
+                if switch == 0:
+                    break
+            return
+        def swap(x, y):
+            nums[x] += nums[y]
+            nums[y] = nums[x] - nums[y]
+            nums[x] -= nums[y]
+            return
+        def downsift(li, i):
+            # both child nodes exist
+            try:
+                if (
+                    li[2*i + 1] > li[2*i + 2] 
+                    and li[2*i + 1] > li[i]
+                ):
+                    swap (2*i + 1, i)
+                    downsift(nums[0:len(li)], 2*i + 1)
+                elif li[2*i + 2] > li[i]:
+                    swap (2*i + 2, i)
+                    downsift(nums[0:len(li)], 2*i + 2)
+            except IndexError:
+                # only one child node exists
+                try:
+                    if li[2*i + 1] > li[i]:
+                        swap(2*i + 1, i)
+                        downsift(nums[0:len(li)], 2*i + 1)
+                # no child nodes exist
+                except IndexError:
+                    return
+            return
+        heapify()
+        for i in range(len(nums) - 1, 0, -1):
+            swap(0, i)
+            downsift(nums[0:i], 0)
+        return nums
+    
+    # find triplets
+    def find_triplets(self, nums:List[int]) -> List[int]:
+        
+        return []

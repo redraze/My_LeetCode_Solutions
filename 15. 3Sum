@@ -81,7 +81,8 @@ Making the time complexity O(sort time + len(array)^2)
 
 # my second attempt!
 # chose a heapsort algorithm because it looked neat and I hadn't written one before
-# my heapsrt algo also utiliuzes Floyd's heap construction
+# my heapsort algo also utiliuzes Floyd's heap construction
+# also, Fibonacci's heapsort looks awesome!
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:

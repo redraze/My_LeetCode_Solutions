@@ -88,8 +88,8 @@ class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums = self.heapsort(nums)
         return self.find_triplets(nums)
-        
-    # heapsort algorithm
+    
+    # heapsort algorithm (n*log(n) runtime)
     def heapsort(self, nums:List[int]) -> List[int]:
         def swap(x, y):
             nums[x] += nums[y]
@@ -103,7 +103,7 @@ class Solution:
                     li[2*i + 1] > li[2*i + 2] 
                     and li[2*i + 1] > li[i]
                 ):
-                    swap (2*i + 1, i)
+                    swap(2*i + 1, i)
                     downsift(nums[0:len(li)], 2*i + 1)
                 elif li[2*i + 2] > li[i]:
                     swap (2*i + 2, i)
@@ -121,7 +121,7 @@ class Solution:
         # build max heap (Floyd's heap construction)
         for i in range(int(len(nums)/2)-1, -1, -1):
             downsift(nums, i)
-        # extract and downsift
+        # extract and downsift until array is sorted
         for i in range(len(nums) - 1, 0, -1):
             swap(0, i)
             downsift(nums[0:i], 0)
@@ -129,31 +129,21 @@ class Solution:
     
     # two pointer algorithm (n^2 runtime)
     def find_triplets(self, nums:List[int]) -> List[int]:
-        def check_triplet(i,j,k):
-            if i not in triplets_dict:
-                triplets.append([i,j,k])
-                triplets_dict[i] = {}
-                triplets_dict[i][j,k] = 0
-                triplets_dict[i][k,j] = 0
-            elif (
-                (j,k) not in triplets_dict[i] 
-                and (k,j) not in triplets_dict[i]
-            ):
-                triplets.append([i,j,k])
-                triplets_dict[i][j,k] = 0
-                triplets_dict[i][k,j] = 0
-            return
-        triplets = []
-        triplets_dict = {}
+        # so, sets are pretty useful lol
+        triplets = set()        
         for j in range(1, len(nums) - 1):
             i = j - 1
             k = j + 1
             while i >= 0 and k < len(nums):
                 if nums[i] + nums[j] + nums[k] == 0:
-                    check_triplet(nums[i], nums[j], nums[k])
+                    t = triplets.add((
+                            tuple(sorted(
+                                (nums[i], nums[j], nums[k])
+                            ))
+                        ))
                     i -= 1
                 elif nums[i] + nums[j] + nums[k] > 0:
                     i -= 1
                 else:
                     k += 1
-        return triplets
+        return list(triplets)

@@ -1,20 +1,20 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        l = len(nums1) + len(nums2)
+        L = len(nums1) + len(nums2)
         
         # empty array
         if not nums1 or not nums2:
             # even
-            if l % 2 == 0:
+            if L % 2 == 0:
                 try:
-                    return (nums1[int(l / 2 - 1)] + nums1[int(l / 2)])/2
+                    return (nums1[int(L / 2 - 1)] + nums1[int(L / 2)])/2
                 except IndexError:
-                    return (nums2[int(l / 2 - 1)] + nums2[int(l / 2)])/2
+                    return (nums2[int(L / 2 - 1)] + nums2[int(L / 2)])/2
             # odd
             try:
-                return nums1[int(l / 2 - .5)]
+                return nums1[int(L / 2 - .5)]
             except IndexError:
-                return nums2[int(l / 2 - .5)]
+                return nums2[int(L / 2 - .5)]
 
             
         a = []
@@ -22,8 +22,8 @@ class Solution:
         c2 = 0
 
         # even
-        if l % 2 == 0:
-            while (c1 + c2) < (l / 2 + 1):
+        if L % 2 == 0:
+            while (c1 + c2) < (L / 2 + 1):
                 try:
                     if nums1[c1] < nums2[c2]:
                         a.append(nums1[c1])
@@ -42,7 +42,7 @@ class Solution:
         
         
         # odd
-        while (c1 + c2) < (l / 2 + .5):
+        while (c1 + c2) < (L / 2 + .5):
             try:
                 if nums1[c1] < nums2[c2]:
                     a.append(nums1[c1])

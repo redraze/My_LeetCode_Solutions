@@ -12,7 +12,10 @@ class Solution:
     def trap(self, height: List[int]) -> int:
         
         # get index of largest value in heights list
-        tallest = max([x for x in enumerate(height)], key=lambda x:x[1])[0]
+        tallest = max(
+                    [x for x in range(len(height))], 
+                    key=lambda x:height[x]
+                    )
         
         # runtime: O(n)
         def iterate(prev: int, tallest: int, step: int) -> int:

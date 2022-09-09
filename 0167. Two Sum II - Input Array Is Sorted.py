@@ -1,21 +1,39 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        # Solution 3
-        # runtime O(n), uses same amount of memory as solution 2???
-        Set = set(numbers)
-        for i,x in enumerate(numbers):
+        # Solution 4
+        # binary search algorithm
+        # runtime O(n log n)
+        # memory optimized
+        for i, x in enumerate(numbers):
+            L = i + 1
+            R = len(numbers) - 1
             complement = target - x
-            if complement in Set:
-                for j,y in enumerate(numbers):
-                    if (
-                        y == complement 
-                        and i != j
-                    ):
-                        return [i+1,j+1]
+            while L <= R:
+                M = L + int((R - L)/2)
+                if numbers[M] == complement:
+                    return [i+1, M+1]
+                if complement < numbers[M]:
+                    R = M - 1
+                else:
+                    L = M + 1
         return []
         
         '''
+        # Solution 3
+        # memoization algorithm
+        # runtime O(n)
+        cache = {}
+        for i,x in enumerate(numbers):
+            complement = target - x
+            if complement in cache:
+                return[cache[complement]+1, i+1]
+            cache[x] = i
+        return []
+        '''
+        
+        '''
         # Solution 2
+        # two-pointer algorithm
         # runtime O(n), memory optimized
         i, j = (0, len(numbers)-1)
         while i <= j:

@@ -1,0 +1,20 @@
+# using an 'IF' statement
+UPDATE 
+    Salary
+SET 
+    sex = IF (
+        sex = 'f',
+        'm',
+        'f'
+    )
+
+/*
+# using a 'CASE' statement
+UPDATE
+    Salary
+SET
+    sex = CASE sex
+        WHEN 'm' THEN 'f'
+        ELSE 'm'
+    END
+*/

@@ -1,5 +1,41 @@
-'''
+# Solution 3:
+# two-pointer alogorithm with some checks for repeated numbers
+# (the checks make the algorithm run much faster during the current tests)
+# Runtime is still O(n^2), though
+# Space complexity is O(n)
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        ans = set()
+        nums = sorted(nums)
+        Set = set(nums)
+        if (
+            (nums[0] < 0 and nums[-1] < 0)
+            or (nums[0] > 0 and nums[-1] > 0)
+        ):
+            return []
+        for j,y in enumerate(nums[1:-1]):
+            if nums[j] == y:
+                if y != 0 and -2*y in Set:
+                        ans.add((tuple(sorted([y,y,-2*y]))))
+                if y == 0 and nums[j+2] == 0:
+                    ans.add((0,0,0))
+                continue
+            i,k = 0,len(nums)-1
+            while i < j+1 and k > j+1:
+                x,z = nums[i],nums[k]
+                Sum = x + y + z
+                if Sum < 0:
+                    i += 1
+                    continue
+                if Sum > 0:
+                    k -= 1
+                    continue
+                ans.add((tuple(sorted([x,y,z]))))
+                i += 1
+        return list(ans)
 
+
+'''
 My first attempt.
 
 Basically a brute force algorithm with a frequency dictionary and dictionary of already searched pairs.
@@ -11,9 +47,8 @@ loop time complexity:               O(len(array)^3)      [worst case]
 overall time complexity:            O(len(array) + len(array)^3) --> O(len(array)^3)
 
 '''
-
-# Runtime: 9319 ms 
-# Memory Usage: 455.5 MB
+# its runtime is over 9000!!!
+# Memory Usage: a lot lol
 # incredible work
 
 class Solution:

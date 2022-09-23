@@ -1,3 +1,6 @@
+# Sliding window algorithm
+# Runtime O(n)
+# Space complexity O(1)
 class Solution:
     def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
         L,ans = 0,0

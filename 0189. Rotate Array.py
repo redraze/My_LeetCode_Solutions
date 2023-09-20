@@ -1,24 +1,28 @@
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
-        # Method 2: using slicing. runtime O(k)
-        # eliminate some edge cases:
-        # no rotations, nums length of 1, and 
-        # completely rotating through the entire length of nums
-        if k == 0 or len(nums) == 1 or k == len(nums):
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+
+        #   Solution #2: 2-pointer fliperoo!
+        def flip(arr: List[int], L: int, R: int) -> None:
+            while L < R:
+                temp = arr[R]
+                arr[R] = arr[L]
+                arr[L] = temp
+                L += 1
+                R -= 1
             return
-        k = k % len(nums)
-        # nums[:] not nums.
-        # using only nums will instantiate a copy of nums.
-        # using nums[:] ensures changing the input nums,
-        # which is what this problem requires.
-        nums[:] = nums[-k::] + nums[0:len(nums)-k]
-        return 
         
-        """
-        # Method 1: using python's build it methods. Runtime O(n^k)
-        while k > 0:
-            nums.insert(0,nums[-1])
-            nums.pop(-1)
-            k -= 1
+        K = k % len(nums)
+        flip(nums, 0, len(nums) - 1)
+        flip(nums, 0, K - 1)
+        flip(nums, K, len(nums) - 1)
         return
-        """
+
+        # #   Solution #1: slicing
+        # K = k % len(nums)
+        # copy = nums[len(nums) - K::] + nums[0:len(nums) - K]
+        # for i, val in enumerate(copy):
+        #     nums[i] = val
+        # return

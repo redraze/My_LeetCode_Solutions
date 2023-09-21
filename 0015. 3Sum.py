@@ -1,3 +1,37 @@
+# My most recent solution
+# still O(n^2) time and O(n) space complexity
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums = sorted(nums)
+        ans = set()
+
+        if (
+            (nums[0] < 0 and nums[-1] < 0)
+            or (nums[0] > 0 and nums[-1] > 0)
+        ):
+            return []
+
+        for i, val in enumerate(nums):
+            if val == nums[i - 1] and i > 0:
+                continue
+
+            L, R = i + 1, len(nums) - 1
+            while L < R:
+                sum = val + nums[L] + nums[R]
+                if sum < 0:
+                    L += 1
+                    continue
+                if sum > 0:
+                    R -= 1
+                    continue
+                trip = tuple(sorted((val, nums[L], nums[R])))
+                if trip not in ans:
+                    ans.add(trip)
+                L += 1
+
+        return list(ans)
+
+
 # Solution 3:
 # two-pointer alogorithm with some checks for repeated numbers
 # (the checks make the algorithm run much faster during the current tests)

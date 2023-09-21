@@ -32,18 +32,16 @@ class Solution:
         '''
         
         '''
-        # Solution 2
+        # Solution 2 (solved again)
         # two-pointer algorithm
         # runtime O(n), memory optimized
-        i, j = (0, len(numbers)-1)
-        while i <= j:
-            if numbers[i] + numbers[j] == target:
-                return [i+1,j+1]
-            if numbers[i] + numbers[j] > target:
-                j -= 1
+        L, R = 0, len(numbers) - 1
+        while numbers[L] + numbers[R] != target:
+            if numbers[L] + numbers[R] < target:
+                L += 1
             else:
-                i += 1
-        return []
+                R -= 1
+        return [L + 1, R + 1]
         '''
         
         '''

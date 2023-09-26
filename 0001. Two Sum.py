@@ -3,9 +3,9 @@ class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         dict = {}
         for i, num in enumerate(nums):
-            compliment = target - num
-            if compliment in dict:
-                return [i, dict[compliment]]
+            complement = target - num
+            if complement in dict:
+                return [i, dict[complement]]
             dict[num] = i
         return
 

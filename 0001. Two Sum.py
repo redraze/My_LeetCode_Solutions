@@ -1,15 +1,20 @@
-###
-#
-# tried a brute force saultion at first, but eventually peeked at the solution. ended up learning a lot about hash tables!
-#
-###
-
-
+# 9/26/2023 solution
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        searched = {}
-        for i in range(len(nums)):
-            complement = target - nums[i]
-            if complement in searched:
-                return [i, searched[complement]]
-            searched[nums[i]] = i
+        dict = {}
+        for i, num in enumerate(nums):
+            compliment = target - num
+            if compliment in dict:
+                return [i, dict[compliment]]
+            dict[num] = i
+        return
+
+# Previous solution
+# class Solution:
+#     def twoSum(self, nums: List[int], target: int) -> List[int]:
+#         searched = {}
+#         for i in range(len(nums)):
+#             complement = target - nums[i]
+#             if complement in searched:
+#                 return [i, searched[complement]]
+#             searched[nums[i]] = i

@@ -10,9 +10,9 @@ class Solution:
             if i == 0:
                 ans.append(interval)
                 continue
-            if ans[-1][1] >= interval[0]:
-                if interval[1] > ans[-1][1]:
-                    ans[-1][1] = interval[1]
-            else:
+            if ans[-1][1] < interval[0]:
                 ans.append(interval)
+                continue
+            if interval[1] > ans[-1][1]:
+                ans[-1][1] = interval[1]
         return ans

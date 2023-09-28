@@ -11,23 +11,13 @@ class Solution:
         for R in range(1, len(nums)):
             if nums[R - 1] != nums[R] - 1:
                 if L == R - 1:
-                    ans.append(str(nums[L]))
+                    ans.append(f'{nums[L]}')
                 else:
-                    ans.append(
-                        '->'.join([
-                            str(nums[L]), 
-                            str(nums[R - 1])
-                        ])
-                    )
+                    ans.append(f'{nums[L]}->{nums[R-1]}')
                 L = R
 
         if L == R:
-            ans.append(str(nums[L]))
+            ans.append(f'{nums[L]}')
         else:
-            ans.append(
-                '->'.join([
-                    str(nums[L]), 
-                    str(nums[R])
-                ])
-            )
+            ans.append(f'{nums[L]}->{nums[R]}')
         return ans

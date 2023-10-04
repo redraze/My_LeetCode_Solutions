@@ -12,43 +12,44 @@ class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         sentry = ListNode(0)
         cursor = sentry
+        sent1, sent2 = l1, l2
 
-        while l1 and l2:
-            cursor.val += l1.val + l2.val
-            l1 = l1.next
-            l2 = l2.next
+        while sent1 and sent2:
+            cursor.val += sent1.val + sent2.val
+            sent1 = sent1.next
+            sent2 = sent2.next
 
             if cursor.val >= 10:
                 cursor.val -= 10
                 cursor.next = ListNode(1)
                 cursor = cursor.next
-            elif l1 or l2:
+            elif sent1 or sent2:
                 cursor.next = ListNode(0)
                 cursor = cursor.next
 
-        # l1 is not None and l2 is None
-        while l1:
-            cursor.val += l1.val
-            l1 = l1.next
+        # sent1 is not None and sent2 is None
+        while sent1:
+            cursor.val += sent1.val
+            sent1 = sent1.next
 
             if cursor.val >= 10:
                 cursor.val -= 10
                 cursor.next = ListNode(1)
                 cursor = cursor.next
-            elif l1:
+            elif sent1:
                 cursor.next = ListNode(0)
                 cursor = cursor.next
         
-        # l2 is not None and l1 is None
-        while l2:
-            cursor.val += l2.val
-            l2 = l2.next
+        # sent2 is not None and sent1 is None
+        while sent2:
+            cursor.val += sent2.val
+            sent2 = sent2.next
 
             if cursor.val >= 10:
                 cursor.val -= 10
                 cursor.next = ListNode(1)
                 cursor = cursor.next
-            elif l2:
+            elif sent2:
                 cursor.next = ListNode(0)
                 cursor = cursor.next
 

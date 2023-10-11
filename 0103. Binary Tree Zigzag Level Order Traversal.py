@@ -10,6 +10,8 @@ class Solution:
             [root, 0]
         ])
         ans = []
+        
+        # my second solution
         while q:
             [node, depth] = q.popleft()
             if not node:
@@ -17,13 +19,29 @@ class Solution:
             q.append([node.left, depth + 1])
             q.append([node.right, depth + 1])
             try:
-                ans[depth].append(node.val)
+                if depth % 2:
+                    ans[depth] = [node.val] + ans[depth]
+                else:
+                    ans[depth].append(node.val)
             except IndexError:
                 ans.append([node.val])
-        
-        switch = False
-        for i in range(len(ans)):
-            if switch:
-                ans[i].reverse()
-            switch = not switch
         return ans
+
+        # # My first solution
+        # while q:
+        #     [node, depth] = q.popleft()
+        #     if not node:
+        #         continue
+        #     q.append([node.left, depth + 1])
+        #     q.append([node.right, depth + 1])
+        #     try:
+        #         ans[depth].append(node.val)
+        #     except IndexError:
+        #         ans.append([node.val])
+        
+        # switch = False
+        # for i in range(len(ans)):
+        #     if switch:
+        #         ans[i].reverse()
+        #     switch = not switch
+        # return ans

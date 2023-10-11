@@ -7,20 +7,21 @@
 class Solution:
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
         # BFS solution
-        q = [[root, 0]]
+        q = deque([
+            [root, 0]
+        ])
         ans = []
-        depth = 0
         while q:
-            [tree, depth] = q.pop(0)
-            if not tree:
+            [node, depth] = q.popleft()
+            if not node:
                 continue
-            q.append([tree.left, depth + 1])
-            q.append([tree.right, depth + 1])
+            q.append([node.left, depth + 1])
+            q.append([node.right, depth + 1])
             try:
                 ans[depth]
             except IndexError:
                 ans.append([0,0])
-            ans[depth][0] += tree.val
+            ans[depth][0] += node.val
             ans[depth][1] += 1
         for i, val in enumerate(ans):
             ans[i] = val[0] / val[1]

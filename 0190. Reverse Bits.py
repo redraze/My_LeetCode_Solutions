@@ -12,3 +12,9 @@ class Solution:
             # remove the last bit from 'n' using the right bit-shift operator 
             n = n >> 1
         return ans
+
+    # # another solution -- type manipulation
+    # def reverseBits(self, n: int) -> int:
+    #     buffer = bin(n)[2::][::-1]
+    #     buffer += '0' * (32 - len(buffer))
+    #     return int(buffer, 2)

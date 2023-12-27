@@ -27,8 +27,7 @@ class Solution:
                 maxTimeNeeded = max(maxTimeNeeded, time)
 
         if len(colors) - prevIdx > 1:
-            timeSpent += sumTimeNeeded
-
+            return timeSpent + sumTimeNeeded
         return timeSpent
 
 # # My first solution:
